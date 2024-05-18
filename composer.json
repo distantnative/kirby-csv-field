@@ -3,7 +3,7 @@
 	"description": "Kirby CMS Panel field to upload and display a single CSV file",
 	"license": "MIT",
 	"type": "kirby-plugin",
-	"version": "1.0.0-beta.1",
+	"version": "1.0.0-beta.2",
 	"homepage": "https://distantnative.com/kirby-csv-field/",
 	"authors": [
 		{
