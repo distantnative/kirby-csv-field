@@ -9,13 +9,9 @@ function csv(string $file, string $delimiter = ','): array
 {
     $lines    = file($file);
     $lines[0] = str_replace("\xEF\xBB\xBF", '', $lines[0]);
+    $csv      = array_map(fn ($d) => str_getcsv($d, $delimiter), $lines);
 
-    $csv = array_map(fn ($d) => str_getcsv($d, $delimiter), $lines);
-
-    array_walk($csv, function(&$a) use ($csv) {
-       $a = array_combine($csv[0], $a);
-    });
-
+    array_walk($csv, fn (&$a) => $a = array_combine($csv[0], $a));
     array_shift($csv);
 
     return $csv;
@@ -77,8 +73,8 @@ App::plugin('distantnative/kirby-csv-field', [
 					'pattern' => 'preview',
 					'method'  => 'GET',
 					'action'  => function () {
-						$file  = $this->requestQuery('file');
-						$file  = $this->field()->model()->file($file);
+						$file = $this->requestQuery('file');
+						$file = $this->field()->model()->file($file);
 						return csv($file->root(), $this->field()->delimiter());
 					}
 				]
