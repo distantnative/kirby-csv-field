@@ -72,8 +72,6 @@ App::plugin('distantnative/kirby-csv-field', [
 							$this->field()->delimiter()
 						);
 
-						$pagination = false;
-
 						if ($limit = $this->field()->limit()) {
 							$csv = $csv->paginate([
 								'page'  => $page,
@@ -85,7 +83,7 @@ App::plugin('distantnative/kirby-csv-field', [
 
 						return [
 							'rows'       => $csv->rows(),
-							'pagination' => $pagination
+							'pagination' => $pagination ?? false
 						];
 					}
 				]
