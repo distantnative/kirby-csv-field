@@ -95,5 +95,6 @@ App::plugin('distantnative/kirby-csv-field', [
 
 			return [];
         }
-	]
+	],
+	'translations' => require_once __DIR__ . '/i18n/index.php'
 ]);

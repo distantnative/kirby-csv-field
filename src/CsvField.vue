@@ -31,15 +31,15 @@
 			/>
 			<k-empty
 				v-else-if="file"
-				text="Loading table…"
+				:text="$t('field.csv.loading')"
 				icon="loader"
 				layout="table"
 			/>
 			<k-empty
 				v-else
+				:text="$t('field.csv.empty')"
 				icon="table"
 				layout="table"
-				text="Select or upload CSV file"
 				@click="open"
 			/>
 		</k-dropzone>
