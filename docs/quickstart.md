@@ -17,8 +17,9 @@ fields:
   myCsvField:
     type: csv
     label: My CSV field
-    delimiter: ;
 ```
+
+See all [blueprint options](/field).
 
 ### With `composer`
 
