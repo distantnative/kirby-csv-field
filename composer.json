@@ -1,0 +1,28 @@
+{
+	"name": "distantnative/kirby-csv-field",
+	"description": "Kirby CMS Panel field to upload and display a single CSV file",
+	"license": "MIT",
+	"type": "kirby-plugin",
+	"version": "1.0.0-beta.1",
+	"homepage": "https://distantnative.com/kirby-csv-field/",
+	"authors": [
+		{
+			"name": "Nico Hoffmann",
+			"email": "nico@getkirby.com"
+		}
+	],
+	"require": {
+		"php": ">=8.1.0 <8.4.0",
+		"getkirby/cms": "^4.0",
+		"getkirby/composer-installer": "^1.1"
+	},
+	"extra": {
+		"installer-name": "csv-field",
+		"kirby-cms-path": false
+	},
+	"config": {
+		"allow-plugins": {
+			"getkirby/composer-installer": true
+		}
+	}
+}

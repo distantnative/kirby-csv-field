@@ -1,0 +1,13 @@
+# OS files
+.DS_Store
+
+# Vendor files
+/node_modules
+/vendor
+
+# Cache and temporary files
+/.cache
+
+# Docs
+/docs/.vitepress/dist
+/docs/.vitepress/cache
