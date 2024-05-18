@@ -15,7 +15,11 @@ class Csv extends Collection
 {
 	public function columns(): array
 	{
-		return array_keys($this->first());
+		if ($first = $this->first()) {
+			return array_keys($first);
+		}
+
+		return [];
 	}
 
 	public static function for(string $file, string $delimiter = ','): static
