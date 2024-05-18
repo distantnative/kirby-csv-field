@@ -1,9 +1,38 @@
 # Use in templates
 
-```php
-$table = $page->myCsvField()->toCsv(';');
+To use your `csv` field in your templates, the plugin also ships with a `->toCsv()` field method.
 
-var_dump($table);
+```php
+$csv = $page->myCsvField()->toCsv(';');
+```
+
+## `Csv` object
+
+The field method returns a `distantnative\CsvField\Csv` object. The `Csv` object is basically a [Kirby collection](https://getkirby.com/docs/reference/objects/toolkit/collection):
+
+```php
+$csv->first();
+$csv->last();
+$csv->paginate();
+// ...
+```
+
+With a little added sugar for rows and columns:
+
+```php
+var_dump($csv->columns());
+```
+
+```
+array (size=4)
+  0 => string 'Username' (length=8)
+  1 => string 'Identifier' (length=10)
+  2 => string 'First name' (length=10)
+  3 => string 'Last name' (length=9)
+```
+
+```php
+var_dump($csv->rows());
 ```
 
 ```
@@ -39,4 +68,27 @@ array (size=5)
       'First name' => string 'Jamie' (length=5)
       'Last name' => string 'Smith' (length=5)
 
+```
+
+## Example
+
+```php
+<?php if ($csv = $page->myCsvField()->toCsv(';')): ?>
+<table>
+  <thead>
+    <?php foreach ($csv->columns() as $column): ?>
+    <th><?= $column ?></th>
+    <?php endforeach ?>
+  </thead>
+  <tbody>
+    <?php foreach ($csv->rows() as $row): ?>
+    <tr>
+      <?php foreach ($row as $cell): ?>
+      <td><?= $cell ?></td>
+      <?php endforeach ?>
+    </tr>
+    <?php endforeach ?>
+  </tbody>
+</table>
+<?php endif ?>
 ```

@@ -5,17 +5,9 @@ namespace distantnative\CsvField;
 use Kirby\Cms\App;
 use Kirby\Content\Field;
 
-function csv(string $file, string $delimiter = ','): array
-{
-    $lines    = file($file);
-    $lines[0] = str_replace("\xEF\xBB\xBF", '', $lines[0]);
-    $csv      = array_map(fn ($d) => str_getcsv($d, $delimiter), $lines);
-
-    array_walk($csv, fn (&$a) => $a = array_combine($csv[0], $a));
-    array_shift($csv);
-
-    return $csv;
-}
+load([
+	'distantnative\CsvField\Csv' => __DIR__ . '/Csv.php'
+]);
 
 App::plugin('distantnative/kirby-csv-field', [
 	'fields' => [
@@ -74,22 +66,23 @@ App::plugin('distantnative/kirby-csv-field', [
 					'method'  => 'GET',
 					'action'  => function () {
 						$file = $this->requestQuery('file');
-						$file = $this->field()->model()->file($file);
-						return csv($file->root(), $this->field()->delimiter());
+						$csv  = Csv::for(
+							$this->field()->model()->file($file)->root(),
+							$this->field()->delimiter()
+						);
+						return $csv->rows();
 					}
 				]
 			]
 		]
 	],
 	'fieldMethods' => [
-		'toCsv' => function (Field $field, string $delimiter = ','): array {
-			$files = $field->toFiles();
-
-            if ($file = $files->first()) {
-				return csv($file->root(), $delimiter);
+		'toCsv' => function (Field $field, string $delimiter = ','): Csv|null {
+            if ($file = $field->toFiles()->first()) {
+				return Csv::for($file->root(), $delimiter);
 			}
 
-			return [];
+			return null;
         }
 	],
 	'translations' => require_once __DIR__ . '/i18n/index.php'
