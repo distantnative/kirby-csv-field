@@ -47,6 +47,9 @@ App::plugin('distantnative/kirby-csv-field', [
 				'delimiter' => function (string $delimiter = ',') {
 					return $delimiter;
 				},
+				'limit' => function (int $limit = null) {
+					return $limit;
+				},
 				'multiple' => function (bool $multiple = null) {
 					return false;
 				},

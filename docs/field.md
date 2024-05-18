@@ -9,6 +9,14 @@ myCsvField:
 
 ![CSV field in the Panel](/csv-field.png)
 
+## Pagination
+
+```yml
+myCsvField:
+  type: csv
+  limit: 10
+```
+
 ## Custom columns
 
 ```yml
@@ -18,6 +26,10 @@ myCsvField:
     a:
       key: User names
       label: User
+    b:
+      key: LastL
+      label: Last seen
+      type: date
 ```
 
 ## Uploads
