@@ -4,10 +4,19 @@
 myCsvField:
   type: csv
   label: My CSV field
-  delimiter: ;
 ```
 
 ![CSV field in the Panel](/csv-field.png)
+
+## Delimiter
+
+Define which character the CSV file uses to separate columns (default: `,`):
+
+```yml
+myCsvField:
+  type: csv
+  delimiter: ;
+```
 
 ## Pagination
 
@@ -23,13 +32,22 @@ myCsvField:
 myCsvField:
   type: csv
   columns:
+    Username:
+      label: User
+    Date:
+      label: Last seen
+      type: date
+```
+
+If the column name/key from the CSV file cannot be used as key inside teh YAML file you can write instead:
+
+```yml
+myCsvField:
+  type: csv
+  columns:
     a:
       key: User names
       label: User
-    b:
-      key: LastL
-      label: Last seen
-      type: date
 ```
 
 ## Uploads
