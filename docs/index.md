@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "CSV field"
   text: "for Kirby"
-  tagline: Preview your CSV file in the Panel
+  tagline: Preview your CSV files in the Panel
   image: /visual.svg
   actions:
     - theme: brand

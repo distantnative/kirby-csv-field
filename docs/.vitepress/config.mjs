@@ -3,7 +3,7 @@ import { defineConfig } from "vitepress";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
 	title: "CSV field",
-	description: "Preview your CSV file in the Panel",
+	description: "Preview your CSV files in the Panel",
 	lang: "en-US",
 	base: "/kirby-csv-field/",
 	appearance: false,
