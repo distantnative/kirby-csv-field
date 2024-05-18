@@ -25,9 +25,10 @@
 			<k-table
 				v-if="rows"
 				:columns="cols"
-				:rows="rowsPaginated"
-				:pagination="pagination"
-				@paginate="page = $event.page"
+				:index="index"
+				:rows="rows"
+				:pagination="pagination ? { ...pagination, details: true } : false"
+				@paginate="preview(pagination.page + 1)"
 			/>
 			<k-empty
 				v-else-if="file"
@@ -56,7 +57,7 @@ export default {
 	data() {
 		return {
 			rows: null,
-			page: 1,
+			pagination: null,
 		};
 	},
 	computed: {
@@ -81,37 +82,38 @@ export default {
 		file() {
 			return this.value[0];
 		},
-		pagination() {
-			return {
-				details: true,
-				limit: this.limit,
-				page: this.page,
-				total: this.rows.length,
-			};
-		},
-		rowsPaginated() {
-			if (!this.limit) {
-				return this.rows;
+		index() {
+			if (this.limit) {
+				return (this.pagination.page - 1) * this.pagination.limit + 1;
 			}
 
-			return this.rows.slice(
-				(this.page - 1) * this.limit,
-				this.page * this.limit,
-			);
+			return null;
 		},
 	},
 	watch: {
 		file: {
-			async handler(file) {
-				this.rows = null;
-
-				if (file) {
-					this.rows = await this.$api.get(this.endpoints.field + "/preview", {
-						file: file.id,
-					});
-				}
+			async handler() {
+				this.preview();
 			},
 			immediate: true,
+		},
+	},
+	methods: {
+		async preview(page = 1) {
+			if (this.file) {
+				const { rows, pagination } = await this.$api.get(
+					this.endpoints.field + "/preview",
+					{
+						file: this.file.id,
+						page,
+					},
+				);
+
+				this.rows = rows;
+				this.pagination = pagination;
+			} else {
+				this.rows = null;
+			}
 		},
 	},
 };

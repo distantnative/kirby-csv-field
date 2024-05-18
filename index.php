@@ -66,11 +66,27 @@ App::plugin('distantnative/kirby-csv-field', [
 					'method'  => 'GET',
 					'action'  => function () {
 						$file = $this->requestQuery('file');
+						$page = $this->requestQuery('page', 1);
 						$csv  = Csv::for(
 							$this->field()->model()->file($file)->root(),
 							$this->field()->delimiter()
 						);
-						return $csv->rows();
+
+						$pagination = false;
+
+						if ($limit = $this->field()->limit()) {
+							$csv = $csv->paginate([
+								'page'  => $page,
+								'limit' => $limit
+							]);
+
+							$pagination = $csv->pagination()->toArray();
+						}
+
+						return [
+							'rows'       => $csv->rows(),
+							'pagination' => $pagination
+						];
 					}
 				]
 			]
