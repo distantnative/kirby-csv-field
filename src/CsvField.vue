@@ -11,16 +11,20 @@
 			/>
 		</template>
 
-		<k-dropzone :disabled="!hasDropzone" @drop="drop">
-			<k-table v-if="rows" v-bind="table" @paginate="preview($event.page)" />
+		<!-- Table preview -->
+		<k-table v-if="csv" v-bind="table" @paginate="preview($event.page)" />
+
+		<!-- Loading state -->
+		<k-empty
+			v-else-if="file"
+			:text="$t('field.csv.loading')"
+			icon="loader"
+			layout="table"
+		/>
+
+		<!-- Empty state -->
+		<k-dropzone v-else :disabled="!hasDropzone" @drop="drop">
 			<k-empty
-				v-else-if="file"
-				:text="$t('field.csv.loading')"
-				icon="loader"
-				layout="table"
-			/>
-			<k-empty
-				v-else
 				:text="$t('field.csv.empty')"
 				icon="table"
 				layout="table"
@@ -33,13 +37,9 @@
 <script>
 export default {
 	extends: "k-files-field",
-	props: {
-		columns: Object,
-	},
 	data() {
 		return {
-			rows: null,
-			pagination: null,
+			csv: null,
 		};
 	},
 	computed: {
@@ -58,22 +58,24 @@ export default {
 		file() {
 			return this.selected[0]?.id;
 		},
+		index() {
+			if (this.csv?.pagination) {
+				return (this.csv.pagination.page - 1) * this.csv.pagination.limit + 1;
+			}
+		},
+		pagination() {
+			return { ...(this.csv?.pagination ?? {}), details: true };
+		},
 		table() {
-			return {
-				columns: Object.fromEntries(
-					Object.keys(this.columns ?? this.rows[0] ?? []).map((key) => [
-						this.columns?.[key].key ?? key,
-						this.columns?.[key] ?? { label: key },
-					]),
-				),
-				index: this.pagination
-					? (this.pagination.page - 1) * this.pagination.limit + 1
-					: null,
-				rows: this.rows,
-				pagination: this.pagination
-					? { ...this.pagination, details: true }
-					: false,
-			};
+			if (this.csv) {
+				return {
+					...this.csv,
+					index: this.index,
+					pagination: this.pagination,
+				};
+			}
+
+			return {};
 		},
 	},
 	mounted() {
@@ -82,7 +84,7 @@ export default {
 	methods: {
 		clear() {
 			this.selected = [];
-			this.rows = null;
+			this.csv = null;
 			this.onInput();
 		},
 		onInput() {
@@ -91,16 +93,10 @@ export default {
 		},
 		async preview(page = 1) {
 			if (this.file) {
-				const { rows, pagination } = await this.$api.get(
-					this.endpoints.field + "/preview",
-					{
-						file: this.file,
-						page,
-					},
-				);
-
-				this.rows = rows;
-				this.pagination = pagination;
+				this.csv = await this.$api.get(this.endpoints.field + "/preview", {
+					file: this.file,
+					page,
+				});
 			}
 		},
 	},

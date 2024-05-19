@@ -65,25 +65,44 @@ App::plugin('distantnative/kirby-csv-field', [
 					'pattern' => 'preview',
 					'method'  => 'GET',
 					'action'  => function () {
-						$file = $this->requestQuery('file');
-						$page = $this->requestQuery('page', 1);
-						$csv  = Csv::for(
-							$this->field()->model()->file($file)->root(),
-							$this->field()->delimiter()
+						$field = $this->field();
+						$file  = $this->requestQuery('file');
+
+						// read file and turn into Csv collection
+						$csv = Csv::for(
+							$field->model()->file($file)->root(),
+							$field->delimiter()
 						);
 
-						if ($limit = $this->field()->limit()) {
+						// gather columns or use
+						// manually configured columns
+						$columns = [];
+
+						foreach ($field->columns() ?? $csv->columns() as $key => $column) {
+							$key = match (true) {
+								is_array($column) => $column['key'] ?? $key,
+								is_string($key)   => $key,
+								default           => $column
+							};
+
+							$columns[$key] = match (true) {
+								is_array($column) => $column,
+								default           => ['label' => $column]
+							};
+						}
+
+						// paginate rows
+						if ($limit = $field->limit()) {
 							$csv = $csv->paginate([
-								'page'  => $page,
+								'page'  => $this->requestQuery('page', 1),
 								'limit' => $limit
 							]);
-
-							$pagination = $csv->pagination()->toArray();
 						}
 
 						return [
+							'columns'    => $columns,
 							'rows'       => $csv->rows(),
-							'pagination' => $pagination ?? false
+							'pagination' => $csv->pagination()?->toArray() ?? false
 						];
 					}
 				]
