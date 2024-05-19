@@ -1,5 +1,7 @@
 # Getting started
 
+This Panel field is ideal for people who want to preview single CSV files in the Panel and make simple use of the data in the frontend. If you want to achieve more elaborate matters, [virtual pages from CSV](https://getkirby.com/docs/guide/virtual-content/content-from-csv) will still be the better choice.
+
 ## Requirements
 
 The CSV field requires Kirby 4.
