@@ -50,7 +50,7 @@ export default defineConfig({
 		socialLinks: [
 			{
 				icon: "github",
-				link: "https://github.com/distantnative/retour-for-kirby",
+				link: "https://github.com/distantnative/kirby-csv-field",
 			},
 			{
 				icon: "mastodon",
