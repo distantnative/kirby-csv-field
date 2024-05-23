@@ -39,7 +39,7 @@ myCsvField:
       type: date
 ```
 
-If the column name/key from the CSV file cannot be used as key inside teh YAML file you can write instead:
+If the column name/key from the CSV file cannot be used as key inside the YAML file you can write instead:
 
 ```yml
 myCsvField:
