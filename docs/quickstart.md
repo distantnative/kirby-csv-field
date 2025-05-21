@@ -4,7 +4,7 @@ This Panel field is ideal for people who want to preview single CSV files in the
 
 ## Requirements
 
-The CSV field requires Kirby 4.
+The CSV field requires Kirby 4 or 5.
 
 ## Install
 
