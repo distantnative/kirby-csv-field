@@ -1,7 +1,7 @@
 ![Kirby CSV field](https://distantnative.com/kirby-csv-field/ogimage.png)
 
-[![Version](https://img.shields.io/badge/version-1.0.0-8dbae7.svg?style=for-the-badge)](https://github.com/distantnative/kirby-csv-field/releases)
-[![Dependency](https://img.shields.io/badge/kirby-4.0.0--4.x-f0d575.svg?style=for-the-badge)](https://getkirby.com/)
+[![Version](https://img.shields.io/badge/version-1.1.0-8dbae7.svg?style=for-the-badge)](https://github.com/distantnative/kirby-csv-field/releases)
+[![Dependency](https://img.shields.io/badge/kirby-4.0.0--5.x-f0d575.svg?style=for-the-badge)](https://getkirby.com/)
 [![Donate](https://img.shields.io/badge/support-give_back-bdde7a.svg?style=for-the-badge)](https://paypal.me/distantnative)
 
 > [!NOTE]
