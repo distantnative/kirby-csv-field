@@ -78,8 +78,13 @@ export default {
 			return {};
 		},
 	},
-	mounted() {
-		this.preview();
+	watch: {
+		file: {
+			handler() {
+				this.preview();
+			},
+			immediate: true,
+		}
 	},
 	methods: {
 		clear() {
