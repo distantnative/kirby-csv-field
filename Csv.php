@@ -26,7 +26,7 @@ class Csv extends Collection
 	{
 		$lines    = file($file);
 		$lines[0] = str_replace("\xEF\xBB\xBF", '', $lines[0]);
-		$csv      = array_map(fn ($d) => str_getcsv($d, $delimiter), $lines);
+		$csv      = array_map(fn ($d) => str_getcsv(string: $d, separator: $delimiter, escape: '\\'), $lines);
 
 		array_walk($csv, fn (&$a) => $a = array_combine($csv[0], $a));
 		array_shift($csv);
