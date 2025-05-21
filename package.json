@@ -8,11 +8,11 @@
 		"docs:preview": "vitepress preview docs"
 	},
 	"devDependencies": {
-		"eslint": "^9.3.0",
-		"eslint-config-prettier": "^9.1.0",
-		"eslint-plugin-vue": "^9.26.0",
-		"prettier": "^3.2.5",
-		"vitepress": "^1.2.0"
+		"eslint": "^9.27.0",
+		"eslint-config-prettier": "^10.1.5",
+		"eslint-plugin-vue": "^10.1.0",
+		"prettier": "^3.5.3",
+		"vitepress": "^1.6.3"
 	},
 	"browserslist": "> 2%"
 }
