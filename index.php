@@ -29,19 +29,19 @@ App::plugin('distantnative/kirby-csv-field', [
 				'size'    => null,
 				'text'    => null,
 
-				'columns' => function (array $columns = null) {
+				'columns' => function (array|null $columns = null) {
 					return $columns;
 				},
 				'delimiter' => function (string $delimiter = ',') {
 					return $delimiter;
 				},
-				'limit' => function (int $limit = null) {
+				'limit' => function (int|null $limit = null) {
 					return $limit;
 				},
-				'multiple' => function (bool $multiple = null) {
+				'multiple' => function (bool $multiple = false) {
 					return false;
 				},
-				'uploads' => function ($uploads = []) {
+				'uploads' => function (array|bool $uploads = []) {
 					if ($uploads === false) {
 						return false;
 					}
