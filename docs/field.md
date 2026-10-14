@@ -50,6 +50,19 @@ myCsvField:
       label: User
 ```
 
+All columns stay visible when the field is narrow. To hide a column in narrow fields, set `mobile: false`:
+
+```yml
+myCsvField:
+  type: csv
+  columns:
+    Username:
+      label: User
+    Date:
+      label: Last seen
+      mobile: false
+```
+
 ## Uploads
 
 ### Assign template on upload

@@ -18,10 +18,10 @@ class CsvFieldTest extends TestCase
 		]);
 
 		$this->assertSame([
-			'Username'   => ['label' => 'Username'],
-			'Identifier' => ['label' => 'Identifier'],
-			'First name' => ['label' => 'First name'],
-			'Last name'  => ['label' => 'Last name']
+			'Username'   => ['mobile' => true, 'label' => 'Username'],
+			'Identifier' => ['mobile' => true, 'label' => 'Identifier'],
+			'First name' => ['mobile' => true, 'label' => 'First name'],
+			'Last name'  => ['mobile' => true, 'label' => 'Last name']
 		], $preview['columns']);
 		$this->assertCount(5, $preview['rows']);
 		$this->assertFalse($preview['pagination']);
@@ -170,8 +170,9 @@ class CsvFieldTest extends TestCase
 					'type'  => 'number'
 				],
 				'a' => [
-					'key'   => 'Last name',
-					'label' => 'Name'
+					'key'    => 'Last name',
+					'label'  => 'Name',
+					'mobile' => false
 				]
 			]
 		]);
@@ -180,10 +181,10 @@ class CsvFieldTest extends TestCase
 		$preview = $field->preview($file);
 
 		$this->assertSame([
-			'First name' => ['label' => 'First name'],
-			'Username'   => ['label' => 'User'],
-			'Identifier' => ['label' => 'ID', 'type' => 'number'],
-			'Last name'  => ['key' => 'Last name', 'label' => 'Name']
+			'First name' => ['mobile' => true, 'label' => 'First name'],
+			'Username'   => ['mobile' => true, 'label' => 'User'],
+			'Identifier' => ['mobile' => true, 'label' => 'ID', 'type' => 'number'],
+			'Last name'  => ['mobile' => false, 'key' => 'Last name', 'label' => 'Name']
 		], $preview['columns']);
 	}
 

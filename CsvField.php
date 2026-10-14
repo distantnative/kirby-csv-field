@@ -123,10 +123,14 @@ class CsvField extends FilePickerField
 				default           => $column
 			};
 
-			$columns[$key] = match (true) {
-				is_array($column) => $column,
-				default           => ['label' => $column]
-			};
+			$columns[$key] = [
+				// keep all columns visible when the field is narrow
+				'mobile' => true,
+				...match (true) {
+					is_array($column) => $column,
+					default           => ['label' => $column]
+				}
+			];
 		}
 
 		if ($limit = $this->limit()) {
