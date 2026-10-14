@@ -10,6 +10,7 @@
 
 # Cache and temporary files
 /.cache
+/.php-cs-fixer.cache
 
 # Docs
 /docs/.vitepress/dist

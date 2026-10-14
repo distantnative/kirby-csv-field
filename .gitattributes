@@ -15,3 +15,6 @@ package.json export-ignore
 
 # Docs
 docs/ export-ignore
+
+# Tests
+.php-cs-fixer.dist.php export-ignore

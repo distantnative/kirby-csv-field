@@ -5,11 +5,8 @@ namespace distantnative\CsvField;
 use Kirby\Toolkit\Collection;
 
 /**
- * @package   CSV Field
- * @author    Nico Hoffmann <nico@getkirby.com>
- * @link      https://github.com/distantnative/kirby-csv-field
- * @copyright Nico Hoffmann
- * @license   https://opensource.org/licenses/MIT
+ * @link    https://github.com/distantnative/kirby-csv-field
+ * @license https://opensource.org/licenses/MIT
  */
 class Csv extends Collection
 {
@@ -26,9 +23,16 @@ class Csv extends Collection
 	{
 		$lines    = file($file);
 		$lines[0] = str_replace("\xEF\xBB\xBF", '', $lines[0]);
-		$csv      = array_map(fn ($d) => str_getcsv(string: $d, separator: $delimiter, escape: '\\'), $lines);
+		$csv      = array_map(
+			fn ($d) => str_getcsv(string: $d, separator: $delimiter, escape: '\\'),
+			$lines
+		);
 
-		array_walk($csv, fn (&$a) => $a = array_combine($csv[0], $a));
+		array_walk(
+			$csv,
+			fn (&$a) => $a = array_combine($csv[0], $a)
+		);
+
 		array_shift($csv);
 
 		return new static($csv);
