@@ -1,7 +1,7 @@
 {
 	"scripts": {
-		"dev": "npx -y kirbyup src/index.js --watch",
-		"build": "npx -y kirbyup src/index.js",
+		"dev": "kirbyup src/index.js --watch",
+		"build": "kirbyup src/index.js",
 		"lint": "eslint --ext js,vue src/",
 		"docs:dev": "vitepress dev docs",
 		"docs:build": "vitepress build docs",
@@ -11,6 +11,7 @@
 		"eslint": "^9.27.0",
 		"eslint-config-prettier": "^10.1.5",
 		"eslint-plugin-vue": "^10.1.0",
+		"kirbyup": "next",
 		"prettier": "^3.5.3",
 		"vitepress": "^1.6.3"
 	},
