@@ -8,6 +8,8 @@ myCsvField:
 
 ![CSV field in the Panel](/csv-field.png)
 
+The field only lets editors select and upload CSV files.
+
 ## Delimiter
 
 Define which character the CSV file uses to separate columns (default: `,`):

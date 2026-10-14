@@ -145,6 +145,19 @@ class CsvFieldTest extends TestCase
 		$this->assertSame(10, $field->limit());
 	}
 
+	public function testPicker(): void
+	{
+		$app = $this->app();
+		$app->impersonate('kirby');
+
+		$dialog = $this->field(app: $app)->dialogs()['picker']();
+		$files  = $dialog->collector()->models()->pluck('filename');
+
+		$this->assertCount(5, $files);
+		$this->assertContains('users.csv', $files);
+		$this->assertNotContains('notes.md', $files);
+	}
+
 	public function testPreview(): void
 	{
 		$field   = $this->field();
@@ -213,6 +226,18 @@ class CsvFieldTest extends TestCase
 		$this->assertSame(['accept' => '.csv'], $props['uploads']);
 	}
 
+	public function testQuery(): void
+	{
+		$field = $this->field();
+		$this->assertSame('model.files.filterBy("extension", "csv")', $field->query());
+	}
+
+	public function testQueryForFile(): void
+	{
+		$field = new CsvField(model: $this->app()->file('test/users.csv'));
+		$this->assertSame('model.siblings.filterBy("extension", "csv")', $field->query());
+	}
+
 	public function testType(): void
 	{
 		$this->assertSame('csv', $this->field()->type());
@@ -234,7 +259,7 @@ class CsvFieldTest extends TestCase
 		$this->assertSame('list', $field->layout());
 		$this->assertNull($field->max());
 		$this->assertFalse($field->multiple());
-		$this->assertNull($field->query());
+		$this->assertSame('model.files.filterBy("extension", "csv")', $field->query());
 		$this->assertTrue($field->search());
 		$this->assertNull($field->text());
 	}

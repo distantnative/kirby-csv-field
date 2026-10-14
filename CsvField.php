@@ -147,6 +147,19 @@ class CsvField extends FilePickerField
 		];
 	}
 
+	/**
+	 * Only lists the CSV files of the model in the picker
+	 */
+	public function query(): string
+	{
+		$files = match (true) {
+			$this->model() instanceof File => 'model.siblings',
+			default                        => 'model.files'
+		};
+
+		return $files . '.filterBy("extension", "csv")';
+	}
+
 	protected function register(array $args): void
 	{
 		parent::register(
