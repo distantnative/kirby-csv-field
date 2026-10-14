@@ -4,7 +4,10 @@ This Panel field is ideal for people who want to preview single CSV files in the
 
 ## Requirements
 
-The CSV field requires Kirby 4 or 5.
+| Kirby | CSV field |
+| ----- | --------- |
+| 6     | 2 (requires PHP 8.3+) |
+| 4, 5  | [<Badge type="info" text="v1.1.0" />](https://github.com/distantnative/kirby-csv-field/releases/tag/1.1.0) |
 
 ## Install
 
@@ -33,13 +36,13 @@ composer require distantnative/kirby-csv-field
 
 ## Updates
 
-Make sure to read the [release notes](https://github.com/distantnative/kirby-csv-fieldy/releases) for breaking changes before you start the update.
+Make sure to read the [release notes](https://github.com/distantnative/kirby-csv-field/releases) for breaking changes before you start the update.
 
-1. [<Badge type="tip" text="Download" />](https://api.github.com/repos/distantnative/kirby-csv-fieldy/zipball) & unzip the new version
+1. [<Badge type="tip" text="Download" />](https://api.github.com/repos/distantnative/kirby-csv-field/zipball) & unzip the new version
 2. Replace the `/site/plugins/csv-field` folder
 
 Or, if you installed the plugin via composer, run:
 
 ```bash
-composer update distantnative/kirby-csv-fieldy
+composer update distantnative/kirby-csv-field
 ```

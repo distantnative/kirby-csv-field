@@ -8,10 +8,15 @@ src/ export-ignore
 
 # Development files
 .editorconfig export-ignore
-.eslintrc.js export-ignore
 composer.lock export-ignore
+eslint.config.mjs export-ignore
 package-lock.json export-ignore
 package.json export-ignore
 
 # Docs
 docs/ export-ignore
+
+# Tests
+.php-cs-fixer.dist.php export-ignore
+phpunit.xml.dist export-ignore
+tests/ export-ignore
