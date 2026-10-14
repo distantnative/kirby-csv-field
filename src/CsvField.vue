@@ -1,5 +1,10 @@
 <template>
-	<k-field v-bind="$props" class="k-models-field k-csv-field">
+	<k-field
+		v-bind="$props"
+		:class="['k-models-field', 'k-csv-field', $attrs.class]"
+		:input="false"
+		:style="$attrs.style"
+	>
 		<template v-if="!disabled" #options>
 			<k-button-group
 				ref="buttons"
@@ -36,7 +41,7 @@
 
 <script>
 export default {
-	extends: "k-files-field",
+	extends: "k-filepicker-field",
 	data() {
 		return {
 			csv: null,
@@ -51,58 +56,55 @@ export default {
 					size: "xs",
 					text: this.$t("remove"),
 					variant: "filled",
-					click: () => this.clear(),
+					click: () => this.remove(0),
 				},
 			];
 		},
 		file() {
-			return this.selected[0]?.id;
+			return this.value[0];
 		},
 		index() {
 			if (this.csv?.pagination) {
 				return (this.csv.pagination.page - 1) * this.csv.pagination.limit + 1;
 			}
+
+			return 1;
 		},
 		pagination() {
-			return { ...(this.csv?.pagination ?? {}), details: true };
-		},
-		table() {
-			if (this.csv) {
-				return {
-					...this.csv,
-					index: this.index,
-					pagination: this.pagination,
-				};
+			if (this.csv?.pagination) {
+				return { ...this.csv.pagination, details: true };
 			}
 
-			return {};
+			return false;
+		},
+		table() {
+			return {
+				columns: this.csv.columns,
+				index: this.index,
+				pagination: this.pagination,
+				rows: this.csv.rows,
+			};
 		},
 	},
 	watch: {
 		file: {
 			handler() {
+				this.csv = null;
 				this.preview();
 			},
 			immediate: true,
-		}
+		},
 	},
 	methods: {
-		clear() {
-			this.selected = [];
-			this.csv = null;
-			this.onInput();
-		},
-		onInput() {
-			this.$emit("input", this.selected);
-			this.preview();
-		},
 		async preview(page = 1) {
-			if (this.file) {
-				this.csv = await this.$api.get(this.endpoints.field + "/preview", {
-					file: this.file,
-					page,
-				});
+			if (!this.file) {
+				return;
 			}
+
+			this.csv = await this.$panel.api.get(this.endpoints.field + "/preview", {
+				file: this.file,
+				page,
+			});
 		},
 	},
 };
