@@ -18,3 +18,5 @@ docs/ export-ignore
 
 # Tests
 .php-cs-fixer.dist.php export-ignore
+phpunit.xml.dist export-ignore
+tests/ export-ignore

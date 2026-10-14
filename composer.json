@@ -25,6 +25,11 @@
 	"require-dev": {
 		"getkirby/cms": "dev-v6/develop as 6.0.0-beta.1"
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"distantnative\\CsvField\\": "tests/"
+		}
+	},
 	"extra": {
 		"installer-name": "csv-field",
 		"kirby": {
@@ -33,7 +38,8 @@
 		"kirby-cms-path": false
 	},
 	"scripts": {
-		"fix": "cpx getkirby/php-cs:^0.2 fix"
+		"fix": "cpx getkirby/php-cs:^0.2 fix",
+		"test": "cpx brianium/paratest:7.20.0"
 	},
 	"minimum-stability": "beta",
 	"prefer-stable": true,

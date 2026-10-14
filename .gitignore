@@ -11,6 +11,8 @@
 # Cache and temporary files
 /.cache
 /.php-cs-fixer.cache
+/.phpunit.cache
+/tests/tmp
 
 # Docs
 /docs/.vitepress/dist
